@@ -1,0 +1,80 @@
+--Script HIVE
+
+create database proyectobigdata;
+
+drop table if exists proyectobigdata.worldcupmatches;
+drop table if exists proyectobigdata.worldcup;
+drop table if exists proyectobigdata.worldcupplayers;
+
+
+
+create external table proyectobigdata.worldcup
+(Year int,
+Country string ,
+Winner string ,
+RunnersUp string ,
+Third string ,
+Fourth string ,
+GoalsScored int ,
+QualifiedTeams int,
+MatchesPlayed int,
+Attendance int 
+)ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/ProyectoBigData/landing/worldcup'
+TBLPROPERTIES ("skip.header.line.count"="1");
+
+
+create table proyectobigdata.worldcupplayers
+( RoundID int,
+MatchID int,
+TeamInitials string,
+CoachName string,
+LineUp string ,
+ShirtNumber int,
+PlayerName string,
+Position string ,
+Event string 
+)ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+LOCATION '/ProyectoBigData/landing/worldcupplayers'
+TBLPROPERTIES ("skip.header.line.count"="1");
+
+
+create external table proyectobigdata.worldcupmatches
+(Year  int  ,
+Datetime  string  ,
+Stage  string  ,
+Stadium  string  ,
+City  string  ,
+HomeTeamName  string  ,
+HomeTeamGoals  int  ,
+AwayTeamGoals  int  ,
+AwayTeamName  string  ,
+Winconditions  string  ,
+Attendance  int  ,
+HalfTimeHomeGoals  int  ,
+HalfTimeAwayGoals  int  ,
+Referee  string  ,
+Assistant1  string  ,
+Assistant2  string  ,
+RoundID  int  ,
+MatchID  int  ,
+HomeTeamInitials string ,
+AwayTeamInitials string )
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\;' LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+TBLPROPERTIES ("skip.header.line.count"="1");
+
+
+--carga de data en tabla
+load data inpath '/ProyectoBigData/landing/worldcupmatches/WorldCupMatches.csv' into table proyectobigdata.worldcupmatches;
+
+--verificando la cantidad de registros cargados
+select  count(*) from proyectobigdata.worldcupmatches ;
+select  count(*) from proyectobigdata.worldcup ;
+select count(*) from proyectobigdata.worldcupplayers;

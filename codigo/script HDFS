@@ -1,0 +1,22 @@
+Script HDFS
+--Creando la estructura de carpetas
+hdfs dfs -mkdir /ProyectoBigData
+hdfs dfs -mkdir /ProyectoBigData/landing
+hdfs dfs -mkdir /ProyectoBigData/smart
+hdfs dfs -mkdir /ProyectoBigData/universo
+hdfs dfs -mkdir /ProyectoBigData/reportes
+
+hdfs dfs -mkdir /ProyectoBigData/landing/worldcupmatches
+hdfs dfs -mkdir /ProyectoBigData/landing/worldcupplayers
+hdfs dfs -mkdir /ProyectoBigData/landing/worldcup
+
+--otorgando permisos
+hdfs dfs -chmod -R 777 /ProyectoBigData/landing/worldcupmatches
+hdfs dfs -chmod -R 777 /ProyectoBigData/landing/worldcupplayers
+hdfs dfs -chmod -R 777 /ProyectoBigData/landing/worldcup
+
+
+--moviendo los archivos al hdfs
+hdfs dfs -put /home/hduser/archivos_data/WorldCupMatches.csv /ProyectoBigData/landing/worldcupmatches/
+hdfs dfs -put /home/hduser/archivos_data/WorldCupPlayers.csv /ProyectoBigData/landing/worldcupplayers/
+hdfs dfs -put /home/hduser/archivos_data/WorldCups.csv /ProyectoBigData/landing/worldcup/
